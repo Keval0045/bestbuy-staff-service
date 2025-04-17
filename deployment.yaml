@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bestbuy-staff-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bestbuy-staff-service
+  template:
+    metadata:
+      labels:
+        app: bestbuy-staff-service
+    spec:
+      containers:
+        - name: bestbuy-staff-service
+          image: Keval0045/bestbuy-staff-service
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bestbuy-staff-service
+spec:
+  selector:
+    app: bestbuy-staff-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
